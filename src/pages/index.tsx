@@ -1,9 +1,14 @@
-/* npm run build → npx next start -p 4000（ポート番号）*/
+/**
+ * npm run dev
+ * npm run build
+ * npm run start or npx next start -p 4000（ポート番号）
+ * npm run export（package.json 10行目に記述：参照元 - https://zenn.dev/lclco/articles/1774dc83548079?redirected=1）
+*/
 
 import { GetServerSideProps, NextPage } from "next";
 import { useState, useEffect } from "react";
 import styles from "./index.module.css";
-import { useFetchImage } from "@/hooks/useFetchImage";
+// import { useFetchImage } from "@/hooks/useFetchImage";
 
 // getServerSidePropsから渡されるpropsの型
 type Props = {
@@ -30,9 +35,11 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
     setLoading(false);
   };
   return (
-    <div>
+    <div style={{ 'width': 'clamp(320px,calc(100vw/2),640px)', 'margin': 'auto', 'textAlign': 'center' }}>
       <button onClick={handleClick} className={styles.button}>他のにゃんこも見る</button>
-      <div className={styles.frame}>{loading || <img src={imageUrl} className={styles.img} />}</div>
+      <div className={styles.frame} style={{ 'margin': '1em auto' }}>
+        {loading || <img src={imageUrl} className={styles.img} />}
+      </div>
     </div>
   );
 };
